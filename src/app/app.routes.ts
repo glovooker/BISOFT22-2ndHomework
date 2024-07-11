@@ -6,64 +6,74 @@ import { UsersComponent } from './pages/users/users.component';
 import { AuthGuard } from './guards/auth.guard';
 import { AccessDeniedComponent } from './pages/access-denied/access-denied.component';
 import { AdminRoleGuard } from './guards/admin-role.guard';
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { GuestGuard } from './guards/guest.guard';
 import { IRole } from './interfaces';
+import { ProductsComponent } from './pages/products/products.component';
+import { CategoriesComponent } from './pages/categories/categories.component';
 
 export const routes: Routes = [
-  {
-    path: 'login',
-    component: LoginComponent,
-    canActivate: [GuestGuard],
-  },
-  {
-    path: 'signup',
-    component: SigUpComponent,
-    canActivate: [GuestGuard],
-  },
-  {
-    path: 'access-denied',
-    component: AccessDeniedComponent,
-  },
-  {
-    path: '',
-    redirectTo: 'login',
-    pathMatch: 'full',
-  },
-  {
-    path: 'app',
-    component: AppLayoutComponent,
-    canActivate: [AuthGuard],
-    children: [
-      {
-        path: 'app',
-        redirectTo: 'users',
+    {
+        path: 'login',
+        component: LoginComponent,
+        canActivate: [GuestGuard],
+    },
+    {
+        path: 'signup',
+        component: SigUpComponent,
+        canActivate: [GuestGuard],
+    },
+    {
+        path: 'access-denied',
+        component: AccessDeniedComponent,
+    },
+    {
+        path: '',
+        redirectTo: 'login',
         pathMatch: 'full',
-      },
-      {
-        path: 'users',
-        component: UsersComponent,
-        canActivate:[AdminRoleGuard],
-        data: { 
-          authorities: [
-            IRole.admin, 
-            IRole.superAdmin
-          ],
-          name: 'Users'
-        }
-      },
-      {
-        path: 'dashboard',
-        component: DashboardComponent,
-        data: { 
-          authorities: [
-            IRole.admin, 
-            IRole.superAdmin,
-            IRole.user
-          ],
-          name: 'Dashboard'
-        }
-      }
-    ],
-  },
+    },
+    {
+        path: 'app',
+        component: AppLayoutComponent,
+        canActivate: [AuthGuard],
+        children: [
+            {
+                path: 'app',
+                redirectTo: 'products',
+                pathMatch: 'full',
+            },
+            {
+                path: 'users',
+                component: UsersComponent,
+                canActivate: [AdminRoleGuard],
+                data: {
+                    authorities: [
+                        IRole.superAdmin
+                    ],
+                    name: 'Users'
+                }
+            },
+            {
+                path: 'categories',
+                component: CategoriesComponent,
+                data: {
+                    authorities: [
+                        IRole.superAdmin,
+                        IRole.user
+                    ],
+                    name: 'Categories'
+                }
+            },
+            {
+                path: 'products',
+                component: ProductsComponent,
+                data: {
+                    authorities: [
+                        IRole.superAdmin,
+                        IRole.user
+                    ],
+                    name: 'Products'
+                }
+            }
+        ],
+    },
 ];
