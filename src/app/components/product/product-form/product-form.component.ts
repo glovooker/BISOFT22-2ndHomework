@@ -22,6 +22,9 @@ export class ProductFormComponent {
         description: '',
         price: 0,
         stock: 0,
+        category: {
+            id: 0,
+        }
     };
     @Input() action: string = 'add';
     @Input() categories: ICategory[] = [];

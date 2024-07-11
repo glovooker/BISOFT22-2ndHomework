@@ -91,7 +91,7 @@
                     class="form-select"
                     id="category"
                     name="category"
-                    [(ngModel)]="category"
+                    [(ngModel)]="product.category"
                     [ngClass]="{ 
                         'is-invalid': category.invalid && category.touched,
                         'is-valid': category.valid && category.touched
@@ -99,7 +99,7 @@
                     required
                 >
                     <option value="" disabled>Select a category</option>
-                    <option *ngFor="let listedCategory of categories" [ngValue]="listedCategory.id" [selected]="listedCategory === category">
+                    <option *ngFor="let listedCategory of categories" [ngValue]="listedCategory.id" [selected]="listedCategory === product.category">
                         {{ listedCategory.name }}
                     </option>
                 </select>
